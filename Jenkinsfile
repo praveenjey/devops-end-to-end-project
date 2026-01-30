@@ -2,9 +2,16 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/<YOUR_USERNAME>/<REPO_NAME>.git'
+                checkout([$class: 'GitSCM',
+                  branches: [[name: '*/main']],
+                  userRemoteConfigs: [[
+                    url: 'https://github.com/praveenjey/devops-end-to-end-project.git',
+                    credentialsId: 'github-token'
+                  ]]
+                ])
             }
         }
 
